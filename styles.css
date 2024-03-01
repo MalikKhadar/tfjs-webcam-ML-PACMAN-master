@@ -385,6 +385,12 @@ button#predict{
   display: none; /* Initially hide the grid container */
   margin-bottom: 20px;
   overflow-x: auto; /* Enable horizontal scrolling if needed */
+  position: absolute;
+  left: 0;
+  width: 380px;
+  text-align: center; /* Center text horizontally */
+  padding: 10px; /* Add padding for spacing */
+  border: 3px solid #ffffff; /* Add border for visual clarity */
 }
 .image-container img {
   width: 100px; /* Adjust the width of the images as needed */
@@ -431,10 +437,16 @@ button#predict{
 }
 
 #color-key {
-  width: 230px; /* Adjust the width as needed */
+  width: 380px; /* Adjust the width as needed */
   /*display: inline-block; /* Display as an inline-block element */
+  color: white; /* White text color */
   border: 3px solid #ffffff; /* Add border for visual clarity */
+  text-align: center; /* Center text horizontally */
   padding: 10px; /* Add padding for spacing */
   position: absolute;
   bottom: 0;
+}
+
+.training-spacer {
+  height: 15px;
 }
