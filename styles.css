@@ -328,6 +328,7 @@ button#predict{
 [data-active="right"] .panel-cell-right .thumb-box-outer {
   box-shadow: 0 0 4px 4px var(--custom-color);
 }
+
 .thumb-box-inner {
   border: 1px solid #585858;
   border-radius: 4px;
@@ -449,4 +450,41 @@ button#predict{
 
 .training-spacer {
   height: 15px;
+}
+
+#mega-pacman-container { 
+  padding-bottom: 20px;
+}
+
+.confidence-bar {
+  position: absolute;
+  background-color: var(--custom-color);
+  opacity: 1;
+  height: auto;
+  transition: opacity 0.3s ease; /* Apply transition to opacity */
+}
+
+#confidence-left {
+  left: 420px;
+  height: 210px; /* Set height to 100% to match parent's height */
+  width: 20px; /* Example width for the border */
+}
+
+#confidence-right {
+  left: 1080px;
+  height: 210px; /* Set height to 100% to match parent's height */
+  width: 20px; /* Example width for the border */
+}
+
+#confidence-up {
+  left: 420px;
+  height: 20px; /* Set height to 100% to match parent's height */
+  width: 680px; /* Example width for the border */
+}
+
+#confidence-down {
+  left: 420px;
+  bottom: -152px;
+  height: 10px; /* Set height to 100% to match parent's height */
+  width: 680px; /* Example width for the border */
 }

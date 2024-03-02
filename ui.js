@@ -115,12 +115,31 @@ function interpolateColor(color1, color2, weight) {
   return interpolatedRgb;
 }
 
+const confidenceBars = [
+  document.getElementById("confidence-up"),
+  document.getElementById("confidence-down"),
+  document.getElementById("confidence-left"),
+  document.getElementById("confidence-right")
+]
+
+function showConfidenceBar(classId) {
+  for (let i = 0; i < confidenceBars.length; i++) {
+    if (i == classId) {
+      confidenceBars[i].style.opacity = "1";
+    } else {
+      confidenceBars[i].style.opacity = "0";
+    }
+  }
+}
+
 export function predictClass(classId, confidence) {
   google.pacman.keyPressed(CONTROL_CODES[classId]);
   document.body.setAttribute('data-active', CONTROLS[classId]);
 
   const color = getColorFromConfidence(confidence);
   document.documentElement.style.setProperty('--custom-color', `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
+
+  showConfidenceBar(classId);
 }
 
 export function isPredicting() {
