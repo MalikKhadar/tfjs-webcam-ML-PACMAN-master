@@ -164,6 +164,7 @@ async function displayImagesForLabel(label) {
     
     addDeleteHandler(label, i, canvas);
   }
+  updateTrainingDataIndicator();
 }
 
 /**
@@ -287,6 +288,7 @@ document.getElementById('train').addEventListener('click', async () => {
   await tf.nextFrame();
   isPredicting = false;
   train();
+  updateTrainingDataIndicator();
 });
 document.getElementById('predict').addEventListener('click', () => {
   ui.startPacman();
@@ -319,6 +321,24 @@ document.getElementById('left').addEventListener("click", function() {
 document.getElementById('right').addEventListener("click", function() {
   displayImagesForLabel(3); // Display images for label 3 (right)
 })
+
+const trainingDataIndicator = document.getElementById('training-data-indicator');
+
+function updateTrainingDataIndicator() {
+  // Count how many images have been trained on
+  let trainedAmount = 0;
+  for (const key in trainedAmounts) {
+    trainedAmount += trainedAmounts[key];
+  }
+
+  // Compare to total number of images
+  if (trainedAmount < imgNum) {
+    // Show "you have images that haven't been trained on"
+    trainingDataIndicator.style.display = "block";
+  } else {
+    trainingDataIndicator.style.display = "none";
+  }
+}
 
 async function init() {
   try {

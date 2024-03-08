@@ -488,3 +488,7 @@ button#predict{
   height: 10px; /* Set height to 100% to match parent's height */
   width: 680px; /* Example width for the border */
 }
+
+#training-data-indicator {
+  display: none;
+}
