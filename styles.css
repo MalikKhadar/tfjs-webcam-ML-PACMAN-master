@@ -444,8 +444,9 @@ button#predict{
   border: 3px solid #ffffff; /* Add border for visual clarity */
   text-align: center; /* Center text horizontally */
   padding: 10px; /* Add padding for spacing */
-  position: absolute;
-  bottom: 0;
+  position: fixed;
+  right: 0px;
+  bottom: 84px;
 }
 
 .training-spacer {
@@ -491,4 +492,5 @@ button#predict{
 
 #training-data-indicator {
   display: none;
+  color: white;
 }
