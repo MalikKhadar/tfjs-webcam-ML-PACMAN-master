@@ -182,6 +182,7 @@ async function showLowConfidenceImage() {
   if (lowConfidenceImages.length > 0) {
     const canvas = document.createElement('canvas');
     lowConfidenceContainer.appendChild(canvas);
+    canvas.style.transform = "scaleX(-1)";
     ui.draw(lowConfidenceImages[0], canvas);
 
     // When image is clicked, dispose of it and remove from array
