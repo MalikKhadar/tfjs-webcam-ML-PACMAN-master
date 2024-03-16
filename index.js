@@ -333,6 +333,7 @@ document.getElementById('train').addEventListener('click', async () => {
   train();
   updateTrainingDataIndicator();
   clearLowConfidence();
+  document.body.setAttribute('data-active', "none");
 });
 document.getElementById('predict').addEventListener('click', () => {
   ui.startPacman();
