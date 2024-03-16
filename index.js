@@ -194,9 +194,9 @@ async function showLowConfidenceImage() {
   }
 }
 
-document.getElementById(`low-confidence`).addEventListener('click', async () => {
-  showLowConfidenceImage();
-});
+// document.getElementById(`low-confidence`).addEventListener('click', async () => {
+//   showLowConfidenceImage();
+// });
 
 /**
  * Sets up and trains the classifier.
