@@ -296,7 +296,9 @@ async function predict() {
     const confidence = tf.clone(predictions).as1D().dataSync()[classId];
     
     // If low confidence and enough time has passed, add to low confidence array
-    if (confidence < confidenceThreshold && lowConfidenceFrameBuffer >= lowConfidenceFrameBufferMax) {
+    // only add images if user is scrolled all the way down (aka they're playing)
+    if (confidence < confidenceThreshold && lowConfidenceFrameBuffer >= lowConfidenceFrameBufferMax
+      && (window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
       console.log("low confidence detected");
       lowConfidenceImages.unshift(img);
       lowConfidenceFrameBuffer = 0;
