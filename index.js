@@ -56,7 +56,7 @@ const labeledImages = {
 };
 
 const lowConfidenceImages = [];
-const confidenceThreshold = 0.4;
+const confidenceThreshold = 0.45;
 const lowConfidenceFrameBufferMax = 250;
 let lowConfidenceFrameBuffer = 0;
 
