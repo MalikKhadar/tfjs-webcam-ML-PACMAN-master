@@ -180,6 +180,12 @@ async function handler(label) {
   document.body.removeAttribute('data-active');
 }
 
+export function incrementThumb(label) {
+  const className = CONTROLS[label];
+  const total = document.getElementById(className + '-total');
+  total.innerText = ++totals[label];
+}
+
 export function decrementThumb(label) {
   const className = CONTROLS[label];
   const total = document.getElementById(className + '-total');

@@ -55,6 +55,11 @@ const labeledImages = {
   3: []  // For label 3 (right)
 };
 
+const lowConfidenceImages = [];
+const confidenceThreshold = 0.4;
+const lowConfidenceFrameBufferMax = 250;
+let lowConfidenceFrameBuffer = 0;
+
 const labelDict = {
   0: "UP",
   1: "DOWN",
@@ -167,6 +172,32 @@ async function displayImagesForLabel(label) {
   updateTrainingDataIndicator();
 }
 
+const lowConfidenceContainer = document.getElementById('low-confidence-container');
+
+async function showLowConfidenceImage() {
+  // Remove current canvas (if there is one)
+  lowConfidenceContainer.innerHTML = '';
+
+  // If there is a lowConfidenceImage, draw it
+  if (lowConfidenceImages.length > 0) {
+    const canvas = document.createElement('canvas');
+    lowConfidenceContainer.appendChild(canvas);
+    ui.draw(lowConfidenceImages[0], canvas);
+
+    // When image is clicked, dispose of it and remove from array
+    canvas.addEventListener('click', () => {
+      lowConfidenceImages[0].dispose();
+      lowConfidenceImages.shift();
+      canvas.remove();
+      showLowConfidenceImage();
+    });
+  }
+}
+
+document.getElementById(`low-confidence`).addEventListener('click', async () => {
+  showLowConfidenceImage();
+});
+
 /**
  * Sets up and trains the classifier.
  */
@@ -262,7 +293,18 @@ async function predict() {
     const predictedClass = predictions.as1D().argMax();
     const classId = (await predictedClass.data())[0];
     const confidence = tf.clone(predictions).as1D().dataSync()[classId];
-    img.dispose();
+    
+    // If low confidence and enough time has passed, add to low confidence array
+    if (confidence < confidenceThreshold && lowConfidenceFrameBuffer >= lowConfidenceFrameBufferMax) {
+      console.log("low confidence detected");
+      lowConfidenceImages.unshift(img);
+      lowConfidenceFrameBuffer = 0;
+      showLowConfidenceImage();
+    } else {
+      img.dispose();
+    }
+
+    lowConfidenceFrameBuffer += 1;
 
     ui.predictClass(classId, confidence);
     await tf.nextFrame();
@@ -289,6 +331,7 @@ document.getElementById('train').addEventListener('click', async () => {
   isPredicting = false;
   train();
   updateTrainingDataIndicator();
+  clearLowConfidence();
 });
 document.getElementById('predict').addEventListener('click', () => {
   ui.startPacman();
@@ -320,6 +363,45 @@ document.getElementById('left').addEventListener("click", function() {
 })
 document.getElementById('right').addEventListener("click", function() {
   displayImagesForLabel(3); // Display images for label 3 (right)
+})
+
+function clearLowConfidence() {
+  // Dispose of all the low confidence images
+  while (lowConfidenceImages.length > 0) {
+    lowConfidenceImages[0].dispose();
+    lowConfidenceImages.pop();
+  }
+
+  // Display nothing for the low confidence display
+  showLowConfidenceImage();      
+}
+
+function moveLowConfidenceImage(toLabel) {
+  if (lowConfidenceImages.length > 0) {
+    labeledImages[toLabel].push({ image: lowConfidenceImages[0], num: imgNum });
+    imgNum++;
+    controllerDataset.addExample(truncatedMobileNet.predict(lowConfidenceImages[0]), toLabel);
+
+    ui.incrementThumb(toLabel);
+    lowConfidenceContainer.innerHTML = '';
+    lowConfidenceImages.shift();
+    showLowConfidenceImage();
+
+    displayImagesForLabel(toLabel);
+  }
+}
+
+document.getElementById('confidence-button-0').addEventListener("click", function() {
+  moveLowConfidenceImage(0);
+})
+document.getElementById('confidence-button-1').addEventListener("click", function() {
+  moveLowConfidenceImage(1);
+})
+document.getElementById('confidence-button-2').addEventListener("click", function() {
+  moveLowConfidenceImage(2);
+})
+document.getElementById('confidence-button-3').addEventListener("click", function() {
+  moveLowConfidenceImage(3);
 })
 
 const trainingDataIndicator = document.getElementById('training-data-indicator');

@@ -165,6 +165,26 @@ span.highlight {
   padding: 0;
 }
 
+.controller-panels button,  button#low-confidence{
+  background: none;
+  border: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between; /* Ensure buttons are evenly spaced */
+}
+
+#predict,
+#low-confidence {
+  flex: 0 0 auto; /* Reset flex-grow, flex-shrink, and flex-basis */
+  margin: 0 5px; /* Adjust the margin between buttons */
+}
+
 .big-buttons.play-control {
   width: 100%;
   background-color: black;
@@ -416,6 +436,10 @@ button#predict{
   width: 80px;/*calc(25% - 10px); /* Adjust the width of canvas items */
   height: auto; /* Adjust the height of canvas items */
   cursor: pointer; /* Change cursor to pointer when hovering over canvases */
+}
+
+#low-confidence-container canvas {
+  transform: scaleX(-1);
 }
 
 .toggle-button {
