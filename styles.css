@@ -234,6 +234,7 @@ button#predict{
   box-sizing: border-box;
   display: inline-block;
   padding: 9px;
+  height: 180px;
 }
 .webcam-box-inner {
   border: 1px solid #585858;
@@ -243,6 +244,7 @@ button#predict{
   justify-content: center;
   overflow: hidden;
   width: 160px;
+  height: 160px;
 }
 #webcam {
   height: 160px;
@@ -408,7 +410,7 @@ button#predict{
   overflow-x: auto; /* Enable horizontal scrolling if needed */
   position: absolute;
   left: 0;
-  width: 380px;
+  width: 310px;
   text-align: center; /* Center text horizontally */
   padding: 10px; /* Add padding for spacing */
   border: 3px solid #ffffff; /* Add border for visual clarity */
@@ -423,7 +425,7 @@ button#predict{
   flex-wrap: wrap;
   gap: 10px; /* Adjust the gap between images */
 
-  max-height: 400px; /* Adjust the maximum height as needed */
+  max-height: 360px; /* Adjust the maximum height as needed */
   overflow-y: auto;
   border: 1px solid #ccc; /* Optional: Add border for styling */
   padding: 10px; /* Optional: Add padding for spacing */
@@ -438,8 +440,17 @@ button#predict{
   cursor: pointer; /* Change cursor to pointer when hovering over canvases */
 }
 
+#space-above-confidence {
+  height: 130px;
+}
+
+.low-confidence-panel {
+  margin-top: 13px;
+}
+
 #low-confidence-container canvas {
   transform: scaleX(-1);
+  height: 224px;
 }
 
 .toggle-button {
@@ -487,6 +498,10 @@ button#predict{
   opacity: 1;
   height: auto;
   transition: opacity 0.3s ease; /* Apply transition to opacity */
+}
+
+.confidence-button {
+  color: white; /* White text color */
 }
 
 #confidence-left {
