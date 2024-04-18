@@ -76,7 +76,7 @@ span.highlight {
 
 /* Rules for the pacman game. */
 #pacman-container {
-  background: black;
+  background: white;
   padding: 25px 0 40px;
 }
 #logo {
@@ -501,7 +501,17 @@ button#predict{
 }
 
 .confidence-button {
+  background-color: #4CAF50; /* Green background color */
+  border: none;
   color: white; /* White text color */
+  padding: 10px 20px; /* Padding */
+  text-align: center; /* Center text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Make it inline-block */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Add cursor pointer */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s; /* Smooth transition */
 }
 
 #confidence-left {
@@ -532,4 +542,12 @@ button#predict{
 #training-data-indicator {
   display: none;
   color: white;
+}
+
+#confidence-up-button {
+  padding-left: 90px;
+}
+
+#confidence-down-button {
+  padding-left: 60px;
 }
